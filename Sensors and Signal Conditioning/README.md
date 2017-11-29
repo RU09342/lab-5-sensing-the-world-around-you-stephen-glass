@@ -1,25 +1,45 @@
 # Sensors and Signal Conditioning
-One of the biggest limitations of the microcontroller is the fact that it lives in a digital world. We need certain components to be able to translate the analog world to the digital world and vice-versa. In this lab, we need to be able to convert some electrical phenomena into something our microcontroller can understand. For this, we need a few building blocks to do this.
+## Stephen Glass
 
-## Sensors
-Sensors in a nutshell convert a physical phenomena into an electrical phenomena. For example, and accelerometer converts an acceleration into a change in capacitance (in the case of some MEMS devices). This electrical phenomena does not have to be a voltage, and as such, we need to be able to convert our sensor output to a voltage. From there, we can read in this voltage through our Analog to Digital Converter (ADC).
-
-## Signal Conditioning
-The signal conditioning chain can be broken up into a few main building blocks. In the beginning you have your sensor which converts something into the electrical world. We then need a block which can convert that resultant electrical phenomena into a voltage. From here, this voltage may be too small/large for our microcontroller, so we need to amplify the signal. From there, we may need to de-noise the signal by filtering. After all of this, we might be at a point where we are ready to read the signal into our processor.
-
-## Task
-For this part of the lab, you need to focus on two main aspects: utilizing and reading the ADC, and conditioning a sensor to provide you with a decent output. To do this, you will need to build the proper circuitry to take a measurement from sensors which convert a physical phenomena into:
+This lab will focus on utilizing and reading the ADC and conditioning a sensor to provide a decent output. We will build the proper circuitry to take measurements from sensors which convert a physical phenomena into:
 * Voltage
 * Current
 * Resistance
 
-## Deliverables
+The files in this project are compatible with both ADC10 on the MSP430FR5994 and ADC12 on the MSP430FR5994 and MSP430FR6989.
 
-### Code
-Your code for this section should focus heavily on the ADC and being able to pull data from it. Your code need to communicate back to your computer using UART at 9600 Baud and send the ADC contents at 1 reading per second to start. This really is meant for you to see whether or not your signal conditioning is actually working and you can see changes in your sensor reading. This code should be very very similar to code you have written before and should be simple to port between your processors.
+## Pressure Sensor
+A pressure sensor is used to read the amount of pressure that is being exerted on to the sensor. The sensor is calibrated and conditioned so when the sensor is tightly squeezed an LED will turn on the LaunchPad development board.
 
-### Hardware
-The hardware portion should be the same for each of the processors. You will need to have a total of 3 circuits made, each corresponding to a different sensor. You need to look at the range of measurements and the amount of resolution you can get out of your ADC and determine how to convert, scale, and filter your signal. Don't forget the fact that you will need to convert to a voltage, making some of these circuits not so trivial. The main goal as the hardware designer for these sensors is to provide the microprocessor with the best resolution to maximize the effectiveness of the ADC.
+### Compatibility
+* MSP430FR2311 (PressureSensor/MSP430FR2311/msp430fr2311_pressure.c)
+* MSP430FR5994 (PressureSensor/MSP430FR5994/msp430fr5994_pressure.c)
+* MSP430FR6989 (PressureSensor/MSP430FR6989/msp430fr6989_pressure.c)
 
-### README
-The README for this part of the lab should talk briefly about how the ADC code works, but focus way more on the hardware aspect. You need to include schematics of your circuits, and well as supporting simulation/calculations which show that your circuits should work. You should talk about what types of circuits you are using and how they actually work.
+## Photodiode
+A photodiode (current controled device) will be used in photovolatic mode to read the amount of light measured into the ADC. An LED on the LaunchPad development will turn on when the amount of light reaches a bright level (Flashlight used for testing).
+
+### Compatibility
+* MSP430FR2311 (Photodiode/MSP430FR2311/msp430fr2311_photodiode.c)
+* MSP430FR5994 (Photodiode/MSP430FR5994/msp430fr5994_photodiode.c)
+
+## Photoresistor
+A photoresistor will be used to take in the amount of resistance due to the light being captured. This sensor works inversely for this application as in, when the resistor is subject to a dark room, an LED on the LaunchPad development board will turn on. This application is similar to a nightlight. A sample schematic for this circuit can be seen in the section below.
+
+### Compatibility
+* MSP430FR2311 (Photoresistor/MSP430FR2311/msp430fr2311_ldr.c)
+* MSP430FR5994 (Photoresistor/MSP430FR5994/msp430fr5994_ldr.c)
+
+## Hardware
+ADC reads in voltage, therefore, we need to convert any resistance or current to a voltage output. To do this we can use create a voltage divider for each of our sensors.
+![Voltage Divider Equation](VoltageDivider.png)
+
+The R2 resistor and the power supply will remain constant. Therefore, the voltage output into the ADC input of the microprocessor will depend on the resistance of the sensor.
+
+## Software
+For all boards, the board will communicate with UART on 9600 board transmitting the latest ADC reading. The MSP430FR2311 uses ADC10 while the MSP430FR2311 and MSP430FR5994 use ADC12. ADC10 has 2^(10) bits of resolution while ADC12 has 2^(12) bits of resolution. The initialization of ADC for each of these boards will be slightly different. The code for ADC initialization can be seen in the initADC() functions.
+
+## Sample Schematic
+The photodiode, photoresistor, and pressure sensor are all configured in the same fashion. A sample breadboard schematic of how the Photoresistor was configured can be seen below.
+
+![Sample Schematic](SampleSchematic.png)

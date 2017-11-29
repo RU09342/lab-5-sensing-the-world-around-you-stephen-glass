@@ -1,4 +1,41 @@
 # PCB Design
+## Stephen Glass
+
+The contents in this folder are for a simple MSP430FR2311 PCB breakout board. The circuit uses surface mount components and utilizes proper reset circuitry to have the processor running correctly.
+
+## Contents
+### GERBER Files
+
+Gerber files can be found in the GERBER folder. As per the ECE Resource Center guidelines the following files must be included to have a board sent for manufacturing:
+* HelloWorld1.drl
+* HelloWorld1.gbl
+* HelloWorld1.gbo
+* HelloWorld1.gbs
+* HelloWorld1.gko
+* HelloWorld1.gtl
+* HelloWorld1.gto
+* HelloWorld1.gts
+
+### DipTrace Design Files
+
+The DipTrace design files for the schematic and PCB for the breakout board can be found in the root directory of the PCB Design folder:
+* HelloWorld.dch (Schematic)
+* HelloWorld1.dip (PCB Design)
+
+### Images
+
+![Image of 3D PCB](Images/PCB_3DScreenshot.png)
+
+![Image of 3D with Components](Images/PCB3DComponents.png)
+
+![Image of PCB (Front)](Images/PCB_SCreenshot1.png)
+
+![Image of PCB (Bottom)](Images/PCB_Screenshot2.png)
+
+
+
+
+
 Since we are getting closer to building realistic systems in your final projects, you will most likely need to build a PCB so that you are not worrying about carrying around a rat's nest of wires. Really, the basics of PCB design are quite simple: make a schematic to lay out what components need to be connected to each other, then import the schematic to a PCB designer and physically connect the components together. Where the difficulty comes in is in the tedium. For low-frequency, low power applications, you should be able to get away with pretty much anything you do. 
 
 As the semester progresses we will be dealing with more applications which will require you to build boards with higher signal integrity and power carrying capabilities, but we will cross that bridge when we get to it.
